@@ -156,7 +156,7 @@ function send_nsupdate()
         do
         v_echo " - nsupdate: $LINE"
     done
-    #nsupdate -k $DDNSKEY -v $DDNSFILE
+    if [ $execute = "true" ]; then nsupdate -k $DDNSKEY -v $DDNSFILE; fi
 }
 
 function check_if_update_required
@@ -193,6 +193,7 @@ echo ${hosts[@]}
 v_echo "CLIMODE = $climode"
 if [ $climode = true ]; 
 then
+    get_primary_dnsserver
     send_nsupdate $SETDOMAIN ${hosts[@]}
 else
     v_echo "Starting Batch Mode using $DDNSCONF"
