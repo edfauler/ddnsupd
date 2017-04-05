@@ -5,6 +5,16 @@ Small Script for dynamic DNS updates
 
 How does is work:
 
+It uses nsupdate and DNSSEC keys to update or add a host entry to a bind DNS server zone file. Of course this can be done with nsupdate and a more static script but I have multiple domains and locked for a dyndns setup which doesn't require a subscription.
+
+## Recommendations
+The script require nsupdate and wget to run. If not installed you can install them as following
+
+```
+sudo apt-get install dnsutils
+sudo apt-get install wget
+```
+
 ## Client configuration:
 
 1. Clone the Github project
