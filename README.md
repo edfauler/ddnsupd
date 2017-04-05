@@ -49,4 +49,20 @@ or
 
 ## BIND9 Server configuration:
 
-tbd
+Adjust named.conf and modify "allow-update" with the coresponding key from Step 1
+```
+zone "domain.tld" IN {
+        type master;
+        ...
+        allow-update { key "domain.tld."; };
+        ...
+};
+
+key "domain.tld." {
+	algorithm hmac-md5;
+	secret "<paste your Key here";
+};
+```
+
+The Zone File itself shouldn't containt the entry yu like to dynamically add. The script will take care of and bind will update the zone file anyway. 
+
