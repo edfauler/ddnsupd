@@ -37,12 +37,15 @@ chmod +x ddnsupd.sh
 ```
 
 5. Test the script
-```
-./ddnsupd.sh -f -c example.conf -A
-```
-or
+
+This will update www.domain.tld to the current public IP of the client you running the script. -l will write an log output. Because -k <key> is not specified the script search for a *.private file in the same folder of the script and use it in case there is just one found. As long as no -s <server> is specified the primary nameserver of the domain will be picked out of the MNAME filed from the SOA record. Make sure this point to the right server. 
 ```
 ./ddnsupd.sh -fv -D domain.tld -H www -l log.log
+```
+or using Batch-Mode by modify the example.conf file. After the domain name you can add multiple hostnames if you wish. All will be updated with the same IP in case you want to use multiple services with different names behind the same IP. E.g. smtp, www, imap......
+Then run ddnsupd.sh as follows:
+```
+./ddnsupd.sh -f -c example.conf -A
 ```
 
 6. Create a cron job to continously keep the IP updated
@@ -60,9 +63,8 @@ zone "domain.tld" IN {
 
 key "domain.tld." {
 	algorithm hmac-md5;
-	secret "<paste your Key here";
+	secret "<paste your Key here>";
 };
 ```
 
-The Zone File itself shouldn't containt the entry yu like to dynamically add. The script will take care of and bind will update the zone file anyway. 
-
+The Zone File itself shouldn't containt the entry you like to dynamically add. The script will take care of and bind will update the zone file anyway. 
